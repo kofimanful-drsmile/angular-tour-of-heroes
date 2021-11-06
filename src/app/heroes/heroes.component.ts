@@ -10,7 +10,7 @@ import { MessageService } from '../message.service';
   styleUrls: ['./heroes.component.css']
 })
 export class HeroesComponent implements OnInit {
-  selectedHero?: Hero; 
+
 
   heroesProperty: Hero[] = [];
 
@@ -20,10 +20,6 @@ export class HeroesComponent implements OnInit {
     this.getHeroes();
   }
 
-  onSelect(hero:Hero){
-    this.selectedHero=hero;
-    this.messageServiceProperty.add(`HeroesComponent: Selected hero: ${hero.name} `);
-  }
 
   getHeroes(): void{
     this.heroService.getHeroes().subscribe(heroes=>this.heroesProperty=heroes);
