@@ -12,6 +12,28 @@ import { MessageService } from './message.service';
 })
 export class HeroService {
 
+  
+  httpOptions ={
+    headers: new HttpHeaders({'Content-Type':'application/json'})
+
+  }
+
+  addHero(hero: Hero) {
+    return this.httpProperty.post<Hero>(this.heroesUrl,hero,this.httpOptions)
+      .pipe(
+        tap((newHero:Hero)=>this.log(`added hero with id=${newHero.id}`)),
+        catchError(this.handleError<Hero>('addHero'))
+      );
+  }
+  
+  updateHero(hero: Hero):Observable<any> {
+    return this.httpProperty.put(this.heroesUrl,hero,this.httpOptions)
+      .pipe(
+        tap(_=>this.log(`updated hero id=${hero.id}`)),
+        catchError(this.handleError<any>('updateHero'))
+      );
+  }
+
   private heroesUrl ='api/heroes';
 
   constructor(private httpProperty:HttpClient,private messageService: MessageService) { }
